@@ -1,0 +1,43 @@
+@import './base.css';
+
+body {
+  font-family: 'Nunito Sans', serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    'wdth' 100,
+    'YTLC' 500;
+  max-width: 1425px;
+  margin: 0 auto;
+}
+
+main {
+  text-align: center;
+  padding: 20px 0px;
+}
+
+h1 {
+  font-size: 25px;
+  margin: 15px 0px;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.main-button {
+  background: #f36e16;
+  color: #fff;
+  border: 0px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.secondary-button {
+  background: #17009a;
+  color: #fff;
+  border: 0px;
+  padding: 10px;
+  border-radius: 10px;
+}
