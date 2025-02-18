@@ -6,8 +6,15 @@ import Footer from './components/Footer.vue'
 
 <template>
   <Header />
-  <RouterView />
+  <section>
+    <RouterView />
+  </section>
+
   <Footer />
 </template>
 
-<style scoped></style>
+<style scoped>
+section {
+  padding-top: 120px;
+}
+</style>

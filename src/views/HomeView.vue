@@ -26,7 +26,7 @@ console.log(offersInfos.value)
 </script>
 
 <template>
-  <main>
+  <main class="container">
     <h1>Des millions de petites annonces et autant d'occasions de se faire plairsir</h1>
     <section>
       <div id="banner">
@@ -39,7 +39,7 @@ console.log(offersInfos.value)
       </div>
     </section>
   </main>
-  <section id="offers">
+  <section id="offers" class="container">
     <Card v-for="offer in offersInfos" :key="offer.id" :offer="offer" />
   </section>
 </template>
