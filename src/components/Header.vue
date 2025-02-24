@@ -1,4 +1,21 @@
-<script setup></script>
+<script setup>
+import { inject, ref } from 'vue'
+
+const Store = inject('Store')
+// console.log(Store.userInfos.value)
+
+const logOut = () => {
+  Store.userInfos.value.username = null
+  Store.userInfos.value.token = null
+  $cookies.remove('username')
+  $cookies.remove('token')
+  console.log(Store.userInfos.value)
+}
+
+const userCookies = ref($cookies.get('username'))
+// console.log(userCookies.value)
+console.log(Store.userInfos.value)
+</script>
 
 <template>
   <header>
@@ -16,8 +33,17 @@
           </form>
         </div>
         <div>
-          <i class="fa-regular fa-user"></i><br />
-          <a href="#">Se connecter</a>
+          <div v-if="Store.userInfos.value.username != null">
+            <RouterLink :to="{ name: 'home' }">
+              <i @click="logOut" class="fa-regular fa-user"></i>
+            </RouterLink>
+            <br />
+            <span>{{ Store.userInfos.value.username }}</span>
+          </div>
+          <RouterLink :to="{ name: 'login' }" v-else>
+            <i class="fa-regular fa-user"></i><br />
+            <span>Se connecter</span>
+          </RouterLink>
         </div>
       </div>
       <div id="menu">

@@ -2,13 +2,15 @@
 import { onMounted, ref, computed } from 'vue'
 import axios from 'axios'
 import Card from '@/components/Card.vue'
+import Filter from '@/components/Filter.vue'
 
 const offersInfos = ref([])
+const props = defineProps(['sort', 'pricemin', 'pricemax'])
 
 onMounted(async () => {
   try {
     const { data } = await axios.get(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar',
+      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&filters[]',
     )
     offersInfos.value = data.data
     // console.log(offersInfos.value)
@@ -27,6 +29,7 @@ console.log(offersInfos.value)
 
 <template>
   <main class="container">
+    <Filter :sort="sort" :pricemin="pricemin" :pricemax="pricemax" />
     <h1>Des millions de petites annonces et autant d'occasions de se faire plairsir</h1>
     <section>
       <div id="banner">

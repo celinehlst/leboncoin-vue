@@ -16,6 +16,8 @@ const formatDate = computed(() => {
 const cycleList = computed(() => {
   if (offerViewInfos.value.attributes.pictures.data) {
     const { state, next, prev } = useCycleList(offerViewInfos.value.attributes.pictures.data)
+    console.log(state)
+
     return { state, next, prev }
   } else {
     return {}
