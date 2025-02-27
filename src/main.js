@@ -12,11 +12,13 @@ app.use(router)
 const tokenCookies = ref($cookies.get('token'))
 const usernameCookies = ref($cookies.get('username'))
 const emailCookies = ref($cookies.get('email'))
+const idCookies = ref($cookies.get('id'))
 
 const userInfos = ref({
   username: usernameCookies.value,
   token: tokenCookies.value,
   email: emailCookies.value,
+  id: idCookies.value,
 })
 
 const changeUserInfos = (infos) => {

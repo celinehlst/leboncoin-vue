@@ -1,27 +1,66 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, watchEffect } from 'vue'
+import axios from 'axios'
+import { useRouter, useRoute } from 'vue-router'
 
-const props = defineProps(['sort', 'pricemin', 'pricemax'])
+const props = defineProps({
+  sort: String,
+  pricemin: String,
+  pricemax: String,
+})
 
 const priceMin = ref(props.pricemin)
 const priceMax = ref(props.pricemax)
 const sort = ref(props.sort)
+
+const route = useRoute()
+const router = useRouter()
+
+const handleSubmit = () => {
+  // Copie des query existantes pour pouvoir les modifier, copier le contenu d'un objet dans un autre
+  const queries = { ...route.query }
+  if (priceMin.value) {
+    queries.pricemin = priceMin.value
+  } else {
+    delete queries.pricemin
+  }
+  if (priceMax.value) {
+    queries.pricemax = priceMax.value
+  } else {
+    delete queries.pricemax
+  }
+  // if (sort.value) {
+  //   queries.sort = sort.value
+  // } else {
+  //   delete queries.sort
+  // }
+  queries.page = 1
+  router.push({ name: 'home', query: queries })
+}
 </script>
 
 <template>
   <section id="search-bar">
-    <form action="">
+    <form @submit.prevent="handleSubmit">
       <div>
         <h3>Prix</h3>
         <div>
           <div>
-            <input type="number" name="priceMin" placeholder="Minimum" min="0" v-model="priceMin" />
+            <input
+              type="number"
+              name="priceMin"
+              id="priceMin"
+              placeholder="Minimum"
+              min="0"
+              v-model="priceMin"
+            />
             <label for="priceMin">€</label>
           </div>
           <div>
             <input
               type="number"
               name="priceMax"
+              id="priceMax"
               placeholder="Maximum"
               :min="priceMin"
               v-model="priceMax"

@@ -1,26 +1,41 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
+import { onMounted, ref, computed, watchEffect } from 'vue'
 import axios from 'axios'
 import Card from '@/components/Card.vue'
 import Filter from '@/components/Filter.vue'
 
 const offersInfos = ref([])
-const props = defineProps(['sort', 'pricemin', 'pricemax'])
+const props = defineProps({
+  sort: String,
+  pricemin: String,
+  pricemax: String,
+})
+// console.log(props)
 
 onMounted(async () => {
-  try {
-    const { data } = await axios.get(
-      'https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar&filters[]',
-    )
-    offersInfos.value = data.data
-    // console.log(offersInfos.value)
-    // console.log(data.data)
-  } catch (error) {
-    console.log(error)
-  }
+  watchEffect(async () => {
+    try {
+      let pricefilters = ''
+      if (props.pricemin) {
+        pricefilters += `&filters[price][$gte]=${props.pricemin}`
+      }
+      if (props.pricemax) {
+        pricefilters += `&filters[price][$lte]=${props.pricemax}`
+      }
+
+      const { data } = await axios.get(
+        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar${pricefilters}`,
+      )
+      offersInfos.value = data.data
+      // console.log(offersInfos.value)
+      // console.log(data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  })
 })
 
-console.log(offersInfos.value)
+// console.log(offersInfos.value)
 
 // offersInfos.value.attributes.publishedAt = computed(() => {
 //   return offersInfos.value.attributes.publishedAt

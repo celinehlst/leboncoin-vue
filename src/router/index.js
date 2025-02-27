@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import { inject } from 'vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +14,7 @@ const router = createRouter({
           sort: route.query.sort || '',
           pricemin: Number(route.query.pricemin) || '',
           pricemax: Number(route.query.pricemin) || '',
-          title: route.query.title,
+          // title: route.query.title,
         }
       },
     },
@@ -35,7 +36,21 @@ const router = createRouter({
       props: true,
       component: () => import('../views/LoginView.vue'),
     },
+    {
+      path: '/publish',
+      name: 'publish',
+      props: true,
+      component: () => import('../views/PublishView.vue'),
+      meta: { requireAuth: true },
+    },
   ],
+})
+
+router.beforeEach((to, from) => {
+  const Store = inject('Store')
+  if (to.meta.requireAuth && !Store.userInfos.value.token) {
+    return { name: 'login' }
+  }
 })
 
 export default router

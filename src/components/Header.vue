@@ -1,5 +1,6 @@
 <script setup>
 import { inject, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 
 const Store = inject('Store')
 // console.log(Store.userInfos.value)
@@ -14,7 +15,7 @@ const logOut = () => {
 
 const userCookies = ref($cookies.get('username'))
 // console.log(userCookies.value)
-console.log(Store.userInfos.value)
+// console.log(Store.userInfos.value)
 </script>
 
 <template>
@@ -24,9 +25,12 @@ console.log(Store.userInfos.value)
         <RouterLink :to="{ name: 'home' }"><img src="../assets/img/logo.svg" /></RouterLink>
 
         <div id="buttons">
-          <button class="main-button">
-            <i class="fa-regular fa-square-plus"></i>Déposer une annonce
-          </button>
+          <RouterLink :to="{ name: 'publish' }">
+            <button class="main-button">
+              <i class="fa-regular fa-square-plus"></i>Déposer une annonce
+            </button>
+          </RouterLink>
+
           <form action="">
             <input type="text" name="search" id="search" placeholder="Rechercher sur leboncoin" />
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
