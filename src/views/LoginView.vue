@@ -27,14 +27,14 @@ const handleSubmit = async () => {
         },
       )
       console.log(data)
-      Store.userInfos.value.token = $cookies.set('token', data.jwt)
-      Store.userInfos.value.username = $cookies.set('username', data.user.username)
-      Store.userInfos.value.id = $cookies.set('id', data.user.id)
+      $cookies.set('token', data.jwt)
+      $cookies.set('username', data.user.username)
+      $cookies.set('id', data.user.id)
 
       Store.changeUserInfos({
-        username: Store.userInfos.value.username,
-        token: Store.userInfos.value.token,
-        id: Store.userInfos.value.id,
+        username: data.user.username,
+        token: data.jwt,
+        id: data.user.id,
       })
     }
   } catch (error) {
@@ -78,8 +78,6 @@ const handleSubmit = async () => {
   </main>
 </template>
 <style scoped>
-main {
-}
 section {
   background-image: url('../assets/img/illustration.png');
   background-size: cover;

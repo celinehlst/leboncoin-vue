@@ -89,7 +89,10 @@ onMounted(async () => {
       <p>Répond généralement en 1 heure</p>
       <hr />
       <div>
-        <button class="main-button">Acheter</button>
+        <RouterLink :to="{ name: 'payment', params: { id: props.id } }"
+          ><button class="main-button">Acheter</button></RouterLink
+        >
+
         <button class="secondary-button">Message</button>
       </div>
     </aside>

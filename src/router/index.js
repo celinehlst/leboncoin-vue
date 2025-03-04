@@ -43,6 +43,18 @@ const router = createRouter({
       component: () => import('../views/PublishView.vue'),
       meta: { requireAuth: true },
     },
+    {
+      path: '/payment/:id',
+      name: 'payment',
+      props: true,
+      component: () => import('../views/PayView.vue'),
+      meta: { requireAuth: true },
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'notFound',
+      component: () => import('../views/NotFoundView.vue'),
+    },
   ],
 })
 

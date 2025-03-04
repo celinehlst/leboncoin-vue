@@ -1,17 +1,29 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import axios from 'axios'
 import { inject } from 'vue'
+import { useRouter } from 'vue-router'
 
 const title = ref('')
 const description = ref('')
 const price = ref()
 const pictures = ref([])
 const Store = inject('Store')
+const router = useRouter()
 // console.log(Store.userInfos.value)
-// console.log(Store.userInfos.value.token)
+console.log(Store.userInfos.value.id)
+
+const imagePreview = computed(() => {
+  const tab = []
+  for (let i = 0; i < pictures.value.length; i++) {
+    // console.log(pictures)
+    tab.push(URL.createObjectURL(pictures.value[i]))
+  }
+  return tab
+})
 
 const handleSubmit = async () => {
+  console.log(imagePreview)
   try {
     const formData = new FormData()
     for (const key in pictures.value) {
@@ -23,7 +35,7 @@ const handleSubmit = async () => {
       title: title.value,
       description: description.value,
       price: price.value,
-      owner: Store.userInfos.value.id,
+      owner: Number(Store.userInfos.value.id),
     })
     console.log(stringifiedInfos)
 
@@ -45,6 +57,7 @@ const handleSubmit = async () => {
         },
       },
     )
+    router.push({ name: 'offer', params: { id: data.data.id } })
     console.log(data)
   } catch (error) {
     console.log(error)
@@ -70,10 +83,14 @@ const handleSubmit = async () => {
         @input="
           (event) => {
             pictures = event.target.files
+            console.log(event.target.files)
           }
         "
       />
-      <img src="" alt="" />
+      <div v-for="image in imagePreview" :key="image">
+        <img :src="image" alt="" />
+      </div>
+
       <button class="main-button">Déposer mon annonce</button>
     </form>
   </main>

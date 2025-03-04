@@ -9,7 +9,10 @@
 footer {
   background: rgb(197, 197, 248);
   text-align: center;
-  padding: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
