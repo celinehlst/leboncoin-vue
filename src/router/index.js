@@ -13,7 +13,7 @@ const router = createRouter({
         return {
           sort: route.query.sort || '',
           pricemin: Number(route.query.pricemin) || '',
-          pricemax: Number(route.query.pricemin) || '',
+          pricemax: Number(route.query.pricemax) || '',
           // title: route.query.title,
         }
       },
@@ -48,6 +48,13 @@ const router = createRouter({
       name: 'payment',
       props: true,
       component: () => import('../views/PayView.vue'),
+      meta: { requireAuth: true },
+    },
+    {
+      path: '/profile/:id',
+      name: 'profile',
+      props: true,
+      component: () => import('../views/ProfileView.vue'),
       meta: { requireAuth: true },
     },
     {

@@ -29,11 +29,11 @@ const handleSubmit = () => {
   } else {
     delete queries.pricemax
   }
-  // if (sort.value) {
-  //   queries.sort = sort.value
-  // } else {
-  //   delete queries.sort
-  // }
+  if (sort.value) {
+    queries.sort = sort.value
+  } else {
+    delete queries.sort
+  }
   queries.page = 1
   router.push({ name: 'home', query: queries })
 }
@@ -72,11 +72,11 @@ const handleSubmit = () => {
       <div>
         <h3>Tri</h3>
         <input type="radio" value="price:asc" id="priceAsc" v-model="sort" />
-        <label for="sort">Prix croissant</label>
+        <label for="priceAsc">Prix croissant</label>
         <input type="radio" value="price:desc" id="priceDesc" name="sort" v-model="sort" />
-        <label for="sort">Prix décroissant</label>
-        <input type="radio" name="sort" v-model="sort" />
-        <label for="sort">Pas de tri</label>
+        <label for="priceDesc">Prix décroissant</label>
+        <input type="radio" value="" name="sort" v-model="sort" id="none" />
+        <label for="none">Pas de tri</label>
       </div>
       <div>
         <button class="main-button">Rechercher</button>

@@ -22,15 +22,18 @@ onMounted(async () => {
       if (props.pricemax) {
         pricefilters += `&filters[price][$lte]=${props.pricemax}`
       }
+      console.log(props)
 
       const { data } = await axios.get(
-        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar${pricefilters}`,
+        `https://site--strapileboncoin--2m8zk47gvydr.code.run/api/offers?populate[0]=pictures&populate[1]=owner.avatar${pricefilters}&sort=${props.sort}`,
       )
-      offersInfos.value = data.data
+      console.log(data.data)
+
+      offersInfos.value = [...data.data]
       // console.log(offersInfos.value)
       // console.log(data.data)
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   })
 })
@@ -58,7 +61,10 @@ onMounted(async () => {
     </section>
   </main>
   <section id="offers" class="container">
-    <Card v-for="offer in offersInfos" :key="offer.id" :offer="offer" />
+    <p v-if="!offersInfos">Chargement en cours...</p>
+    <div v-else>
+      <Card v-for="offer in offersInfos" :key="offer.id" :offer="offer" />
+    </div>
   </section>
 </template>
 

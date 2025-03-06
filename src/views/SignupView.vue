@@ -33,7 +33,7 @@ const handleSubmit = async () => {
       console.log(data)
       Store.userInfos.value.token = $cookies.set('token', data.jwt)
       Store.userInfos.value.username = $cookies.set('username', data.user.username)
-      Store.userInfos.value.email = $cookies.set('username', data.user.email)
+      Store.userInfos.value.email = $cookies.set('email', data.user.email)
       Store.changeUserInfos({ username: data.user.username, token: data.jwt })
     }
   } catch (error) {

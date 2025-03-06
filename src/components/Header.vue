@@ -3,7 +3,7 @@ import { inject, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 const Store = inject('Store')
-// console.log(Store.userInfos.value)
+console.log(Store.userInfos.value)
 
 const logOut = () => {
   Store.userInfos.value.username = null
@@ -42,7 +42,9 @@ const userCookies = ref($cookies.get('username'))
               <i @click="logOut" class="fa-regular fa-user"></i>
             </RouterLink>
             <br />
-            <span>{{ Store.userInfos.value.username }}</span>
+            <RouterLink :to="{ name: 'profile', params: { id: Store.userInfos.value.id } }">
+              <span>{{ Store.userInfos.value.username }}</span>
+            </RouterLink>
           </div>
           <RouterLink :to="{ name: 'login' }" v-else>
             <i class="fa-regular fa-user"></i><br />
